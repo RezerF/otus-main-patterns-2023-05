@@ -2,18 +2,15 @@ ZERO = 0.00001
 
 
 class QuadraticEquation:
-    def __init__(self, a=1.0, b=1, c=0):
+    def __init__(self, a=1.0, b=0, c=0):
         self.a = a
         self.b = b
         self.c = c
         self.discriminant = self.b ** 2 - 4 * self.a * self.c
 
-    # def discriminant(self):
-    #     return self.b ** 2 - 4 * self.a * self.c
-
     def check_arg(self):
         if -ZERO < self.a < ZERO:
-            raise Exception("'a' не может быть равна 0")
+            raise Exception("Arg \"a\" don't must be zero!")
 
     def is_root(self):
         if self.discriminant < 0:
@@ -38,36 +35,5 @@ class QuadraticEquation:
         return []
 
 
-def test1():
-    # 2*x**2 + 2*x + 3 = 0
-    x = QuadraticEquation(2, 2, 3)
-    return x.solve()
-
-
-def test2():
-    x = QuadraticEquation(-4, 28, -49)
-    return x.solve()
-
-
-def test3():
-    x = QuadraticEquation(1, 2, 1)
-    return x.solve()
-
-
-def test4():
-    x = QuadraticEquation(1, 0, 1)
-    return x.solve()
-
-
-def test5():
-    x = QuadraticEquation(1, 0, -1)
-    return x.solve()
-
-
-def test6():
-    x = QuadraticEquation(0.000, 0, -1)
-    return x.solve()
-
-
-print(test1(), test2(), test3(), test4(), test5(), test6(), sep="\n")
-pass
+if __name__ == '__main__':
+    print("Build success")
