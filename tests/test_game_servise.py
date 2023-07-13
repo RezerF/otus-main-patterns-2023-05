@@ -1,6 +1,7 @@
 import pytest
 
-from game_service import SpaceShip, MoveCommand, VectorType, RotateCommand
+import exceptions
+from game_service import SpaceShip, MoveCommand, VectorType, RotateCommand, IMovable
 
 
 class TestMoveObject:
@@ -15,6 +16,19 @@ class TestMoveObject:
         expected_position = VectorType(*expected_position)
 
         assert ship.position == expected_position
+
+    @pytest.mark.parametrize(
+        ('position', 'velocity', 'is_movable', 'expected_exception'),
+        [
+            ((None, 5), (-7, 3), True, exceptions.ENonePositionVelocityError),
+            ((12, 5), (None, 3), True, exceptions.ENonePositionVelocityError),
+            ((12, 5), (-7, 3), False, exceptions.EObjectNotMoveableError),
+        ],
+    )
+    def test_move_exceptions(self, position, velocity, is_movable, expected_exception):
+        ship = SpaceShip(position, velocity, is_movable=is_movable)
+        with pytest.raises(expected_exception):
+            MoveCommand(ship).execute()
 
 
 class TestRotateObject:

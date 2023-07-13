@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import exceptions
 
 
 class VectorType:
@@ -31,7 +32,15 @@ class IMovable(ABC):
 
     @abstractmethod
     def set_position(self, a):
-        return self
+        ...
+
+    @abstractmethod
+    def get_is_movable(self):
+        ...
+
+    @abstractmethod
+    def set_is_movable(self, value: bool):
+        ...
 
 
 class IRotatable(ABC):
@@ -53,14 +62,14 @@ class IRotatable(ABC):
 
 
 class SpaceShip(IMovable, IRotatable):
-    def __init__(self, position=None, velocity=None, direction=None, direction_number=None, angular_velocity=None):
+    def __init__(self, position=None, velocity=None, direction=None, direction_number=None, angular_velocity=None, is_movable=True):
         self.position = position
         self.velocity = velocity
         self.direction = direction
         self.direction_number = direction_number
         self.angular_velocity = angular_velocity
+        self.is_movable = is_movable
 
-    # @check
     def get_position(self):
         return self.position
 
@@ -82,12 +91,24 @@ class SpaceShip(IMovable, IRotatable):
     def set_direction(self, value):
         self.direction = value
 
+    def get_is_movable(self):
+        return self.is_movable
+
+    def set_is_movable(self, value: bool):
+        self.is_movable = value
+
 
 class MoveCommand:
     def __init__(self, movable: IMovable):
         self.movable = movable
 
     def execute(self):
+        if not self.movable.get_is_movable():
+            raise exceptions.EObjectNotMoveableError
+        if None in self.movable.get_position():
+            raise exceptions.ENonePositionVelocityError
+        if None in self.movable.get_velocity():
+            raise exceptions.ENonePositionVelocityError
         self.movable.set_position(
             VectorType.plus(
                 self.movable.get_position(),
