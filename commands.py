@@ -32,3 +32,19 @@ class RotateCommand(ICommand):
                     self.rotatable.get_direction() + self.rotatable.get_angular_velocity()
             ) % self.rotatable.get_direction_number()
         )
+
+
+class Retry(ICommand):
+    def __init__(self, cmd: ICommand):
+        self.cmd = cmd
+
+    def execute(self) -> None:
+        self.cmd.execute()
+
+
+class DoubleRetry(ICommand):
+    def __init__(self, cmd: ICommand):
+        self.cmd = cmd
+
+    def execute(self) -> None:
+        self.cmd.execute()
