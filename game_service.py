@@ -1,4 +1,4 @@
-from interfaces import IMovable, IRotatable, ICommand
+from interfaces import IMovable, IRotatable
 
 
 class VectorType:
@@ -18,6 +18,9 @@ class VectorType:
         x, y = position
         dx, dy = velocity
         return VectorType(x + dx, y + dy)
+
+    def half(self):
+        return VectorType(self.x / 2, self.y / 2)
 
 
 class SpaceShip(IMovable, IRotatable):
@@ -56,6 +59,9 @@ class SpaceShip(IMovable, IRotatable):
 
     def set_is_movable(self, value: bool):
         self.is_movable = value
+
+    def set_velocity(self, new_value):
+        self.velocity = new_value
 
 
 if __name__ == '__main__':

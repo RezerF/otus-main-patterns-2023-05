@@ -17,6 +17,10 @@ class IMovable(ABC):
         ...
 
     @abstractmethod
+    def set_velocity(self, a):
+        ...
+
+    @abstractmethod
     def set_position(self, a):
         ...
 
@@ -44,4 +48,18 @@ class IRotatable(ABC):
 
     @abstractmethod
     def set_direction(self, a):
+        ...
+
+
+class IFuelable(ABC):
+    @abstractmethod
+    def get_fuel(self):
+        ...
+
+    @abstractmethod
+    def get_burning_level(self):
+        ...
+
+    @abstractmethod
+    def set_fuel(self, a):
         ...
