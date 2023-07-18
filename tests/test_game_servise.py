@@ -1,7 +1,8 @@
 import pytest
 
 import exceptions
-from game_service import SpaceShip, MoveCommand, VectorType, RotateCommand, IMovable
+from commands import MoveCommand, RotateCommand
+from game_service import SpaceShip, VectorType
 
 
 class TestMoveObject:

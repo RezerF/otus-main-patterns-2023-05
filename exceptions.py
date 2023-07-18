@@ -4,3 +4,7 @@ class ENonePositionVelocityError(Exception):
 
 class EObjectNotMoveableError(Exception):
     """Исклюение при попытке сдвинуть не перемещаемый объект"""
+
+
+class CommonException(Exception):
+    """Общее исключение"""
